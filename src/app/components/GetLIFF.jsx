@@ -31,13 +31,16 @@ export default function GetLIFF({ Component, pageProps }) {
             setLiffError(error.toString());
           });
 
-          liff
-            .getProfile()
-            .then((profile) => {
-            setUserName(profile.displayName)
-            setUserImg(profile.pictureUrl)
-            setUserID(profile.userId)
-          }).catch(err => console.error(err))
+          liff.ready.then(() => {
+            liff
+              .getProfile()
+              .then((profile) => {
+              setUserName(profile.displayName)
+              setUserImg(profile.pictureUrl)
+              setUserID(profile.userId)
+            }).catch(err => console.error(err))
+          })
+
       }, []);
   
       // Provide `liff` object and `liffError` object
