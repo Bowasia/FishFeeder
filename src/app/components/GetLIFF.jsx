@@ -42,8 +42,8 @@ export default function GetLIFF({ Component, pageProps }) {
   
       // Provide `liff` object and `liffError` object
     // to page component as property
-    pageProps.liff = liffObject;
-    pageProps.liffError = liffError;
+    // pageProps.liff = liffObject;
+    // pageProps.liffError = liffError;
   
     return (
       <>
