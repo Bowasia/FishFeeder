@@ -6,7 +6,9 @@ import { useState,useEffect } from "react";
 export default function GetLIFF({ Component, pageProps }) {
     const [liffObject, setLiffObject] = useState(null);
     const [liffError, setLiffError] = useState(null);
-    // const LIFF_ID = "2002295222-rN1W6zoJ"
+    const [userName, setUserName] = useState(null)
+    const [userID, setUserID]  = useState(null)
+    const [userImg, setUserImg] = useState(null)
   
       // Execute liff.init() when the app is initialized
       useEffect(() => {
@@ -28,17 +30,27 @@ export default function GetLIFF({ Component, pageProps }) {
             }
             setLiffError(error.toString());
           });
+
+          liff
+            .getProfile()
+            .then((profile) => {
+            setUserName(profile.displayName)
+            setUserImg(profile.pictureUrl)
+            setUserID(profile.userId)
+          }).catch(err => console.error(err))
       }, []);
   
       // Provide `liff` object and `liffError` object
     // to page component as property
-    // pageProps.liff = liffObject;
-    // pageProps.liffError = liffError;
+    pageProps.liff = liffObject;
+    pageProps.liffError = liffError;
   
     return (
       <>
+      <h1>Hello { userName }</h1>
+      <h3>Your User ID is {userID}</h3>
+      <img src={userImg}/>
       <button>This is just button</button>
-      {/* <Component {...pageProps} /> */}
       </>
     );
   }
