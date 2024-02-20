@@ -1,7 +1,8 @@
+"use client"
 import React from 'react'
 import { nanoid } from 'nanoid';
 
-export default function Payment() {
+export default function Payment({}) {
 
     const generateHmacSignature = (data, channelSecretKey) => {
         const hmac = crypto.createHmac('sha256', channelSecretKey);
@@ -20,29 +21,29 @@ const requestPayment = async () => {
       'Content-Type': 'application/json',
       'X-LINE-ChannelId': channelId,
       'X-LINE-Authorization-Nonce': uniqueNonce, // Replace with a unique nonce value
-      'X-LINE-Authorization': 'GENERATED_SIGNATURE', // Replace with the HMAC signature
+      'X-LINE-Authorization': generateHmacSignature(body, channelSecretKey), // Replace with the HMAC signature
     };
     const body = {
-      amount: 1000,
-      currency: 'JPY',
-      orderId: 'ORDER_ID', // Replace with your order ID
+      amount: 15,
+      currency: 'THB',
+      orderId: '1', 
       packages: [
         {
-          id: 'PACKAGE_ID', // Replace with your package ID
-          amount: 1000,
-          name: 'Product Package',
+          id: '1', 
+          amount: 1,
+          name: 'Package name',
           products: [
             {
-              name: 'Product Name',
+              name: 'Fish Feeder Pass',
               quantity: 1,
-              price: 1000,
+              price: 15,
             },
           ],
         },
       ],
       redirectUrls: {
-        confirmUrl: 'http://localhost:3000', // Replace with your confirm URL
-        cancelUrl: 'http://localhost:3000/about', // Replace with your cancel URL
+        confirmUrl: 'http://localhost:3000/about', // Replace with your confirm URL
+        cancelUrl: 'http://localhost:3000/', // Replace with your cancel URL
       },
     };
   
@@ -59,36 +60,36 @@ const requestPayment = async () => {
     }
   };
   
-  // Sample code for Confirm API
-  const confirmPayment = async (transactionId) => {
-    const channelId = 'YOUR_CHANNEL_ID'; // Replace with your Channel ID
-    const channelSecretKey = 'YOUR_CHANNEL_SECRET_KEY'; // Replace with your Channel Secret Key
-    const confirmUrl = `https://sandbox-api-pay.line.me/v3/payments/${transactionId}/confirm`;
-    const headers = {
-      'Content-Type': 'application/json',
-      'X-LINE-ChannelId': channelId,
-      'X-LINE-Authorization-Nonce': 'UNIQUE_NONCE', // Replace with a unique nonce value
-      'X-LINE-Authorization': 'GENERATED_SIGNATURE', // Replace with the HMAC signature
-    };
-    const body = {
-      amount: 1000,
-      currency: 'JPY',
-    };
+  // // Sample code for Confirm API
+  // const confirmPayment = async (transactionId) => {
+  //   const channelId = '2003139835'; // Replace with your Channel ID
+  //   const channelSecretKey = '2fc3ff5d8d8652e6c06623829b4fe92e'; // Replace with your Channel Secret Key
+  //   const confirmUrl = `https://sandbox-api-pay.line.me/v3/payments/${transactionId}/confirm`;
+  //   const headers = {
+  //     'Content-Type': 'application/json',
+  //     'X-LINE-ChannelId': channelId,
+  //     'X-LINE-Authorization-Nonce': 'UNIQUE_NONCE', // Replace with a unique nonce value
+  //     'X-LINE-Authorization': 'GENERATED_SIGNATURE', // Replace with the HMAC signature
+  //   };
+  //   const body = {
+  //     amount: 1000,
+  //     currency: 'JPY',
+  //   };
   
-    try {
-      const response = await fetch(confirmUrl, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(body),
-      });
-      const responseData = await response.json();
-      console.log(responseData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(confirmUrl, {
+  //       method: 'POST',
+  //       headers: headers,
+  //       body: JSON.stringify(body),
+  //     });
+  //     const responseData = await response.json();
+  //     console.log(responseData);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   
   return (
-    <div>Payment</div>
+    <button onClick={() => {requestPayment()}}> Make transaction </button>
   )
 }

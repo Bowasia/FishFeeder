@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import liff from "@line/liff";
+import { Avatar } from '@mui/material';
 import { useState,useEffect } from "react";
 
 export default function GetLIFF({ Component, pageProps }) {
@@ -51,8 +52,7 @@ export default function GetLIFF({ Component, pageProps }) {
     return (
       <>
       <h1>Hello { userName }</h1>
-      <h3>Your User ID is {userID}</h3>
-      <img src={userImg}/>
+      <Avatar className="ring-offset-1 ring-offset-transparent ring-2 ring-white" alt="Unsplash img" src={userImg}/>
       <button>This is just button</button>
       </>
     );
