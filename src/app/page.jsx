@@ -15,12 +15,6 @@ const pathUrl = '/v3/payments/request'
 
 const requestUrl = baseUrl + pathUrl;
 const uniqueNonce = () => Date.now().toString() + nanoid()
-// const headers = {
-//   'Content-Type': 'application/json',
-//   'X-LINE-ChannelId': ChannelID,
-//   'X-LINE-Authorization-Nonce': uniqueNonce, // Replace with a unique nonce value
-//   'X-LINE-Authorization': generateHmacSignature(body, ChannelSecretKey), // Replace with the HMAC signature
-// };
 
 
 
@@ -65,7 +59,7 @@ export default function Home() {
   }
 
   const handleClick = async () => {
-    var header = genHeader(ChannelId, ChannelSecret, pathUrl, RequestBody, uniqueNonce());
+    var header = genHeader(ChannelID, ChannelSecretKey, pathUrl, RequestBody, uniqueNonce());
     try {
       const response = await fetch(requestUrl,
         {
